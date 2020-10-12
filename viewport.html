@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=980" />
+    <meta charset="utf-8" />
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="div" style="width: 100vw; height: 100vh"></div>
+    <script>
+      (function () {
+        var width = document.getElementById("div").offsetWidth;
+        document.getElementById("div").innerText = "width: " + width;
+      })();
+    </script>
+  </body>
+</html>
