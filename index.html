@@ -1,21 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta name="viewport" content="width=1080" />
     <meta charset="utf-8" />
-    <style>
-      body {
-        margin: 0;
-      }
-    </style>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, minimum-scale=0.1, maximum-scale=10, user-scalable=0" />
+    <title>info</title>
   </head>
   <body>
-    <div id="div" style="width: 100vw; height: 100vh"></div>
+    <div id="app" style="font-family: monospace;"></div>
     <script>
-      (function () {
-        var width = document.getElementById("div").offsetWidth;
-        document.getElementById("div").innerText = "width: " + width;
-      })();
+      var viewport = "waiting"
+      function getInfo() {
+        var arr = [
+          "screen: " + screen.width + "x" + screen.height,
+          "window: " + window.innerWidth + "x" + window.innerHeight,
+          "documentElement: " + document.documentElement.offsetWidth + "x" + document.documentElement.offsetHeight,
+          "devicePixelRatio: " + window.devicePixelRatio,
+          "userAgent: " + navigator.userAgent,
+          "top: " + (window.top === window ? "true" : "false"),
+          "viewport: " + viewport
+        ];
+        return arr;
+      }
+      setTimeout(testViewport, 1000);
+      setInterval(function () {
+        document.querySelector("#app").innerText = (getInfo().join("\n"));
+      }, 100);
+
+      function testViewport() {
+        viewport = "testing"
+        var innerWidth = window.innerWidth;
+        var content = "width=device-width, minimum-scale=0.1, maximum-scale=10, user-scalable=0";
+        document.querySelector("meta[name=viewport]").content = 'width=1234, minimum-scale=0.1, user-scalable=0';
+
+        setTimeout(function () {
+          if (window.innerWidth !== innerWidth)
+            viewport = "true";
+          else
+            viewport = "false";
+          document.querySelector("meta[name=viewport]").content = content;
+        }, 1000)
+      }
     </script>
   </body>
 </html>
